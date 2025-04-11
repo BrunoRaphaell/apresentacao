@@ -1,0 +1,189 @@
+table Fretes
+	lineageTag: bf7f42d3-30f7-4ea8-837c-5417ff1d6f2f
+
+	column 'Data Pedido'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f57c6f5d-d92f-4be6-ac50-e8716b542cf8
+		summarizeBy: none
+		sourceColumn: Data Pedido
+
+		variation Variation
+			isDefault
+			relationship: c064e43f-7a43-4a4c-9507-04bb56c65224
+			defaultHierarchy: LocalDateTable_7f37ac39-2ac8-40a2-bcfd-cd294124d422.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data Previsão Entrega'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a64325ea-aac3-4a2f-a0cf-5b588c0e7051
+		summarizeBy: none
+		sourceColumn: Data Previsão Entrega
+
+		variation Variation
+			isDefault
+			relationship: a5ab4031-417d-4a69-bcf7-a6fd438a866e
+			defaultHierarchy: LocalDateTable_fb30eecd-acef-490b-8804-e1975d6d1546.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data Entrega'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d4ee02fb-5190-49ef-8cc4-d81aada1253e
+		summarizeBy: none
+		sourceColumn: Data Entrega
+
+		variation Variation
+			isDefault
+			relationship: 776fddd4-6e67-4cd7-80c5-c0eb3e24b4c5
+			defaultHierarchy: LocalDateTable_33b93941-6813-4fcb-a048-14cb2f7bdc0d.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column idCliente
+		dataType: int64
+		formatString: 0
+		lineageTag: 5acfb92b-1f0e-4015-abc4-e638ce97104f
+		summarizeBy: sum
+		sourceColumn: idCliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cidade/UF
+		dataType: string
+		lineageTag: 3db58d3f-4777-40c8-9eb0-3e61ff7bf9eb
+		summarizeBy: none
+		sourceColumn: Cidade/UF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column idVeiculo
+		dataType: int64
+		formatString: 0
+		lineageTag: 02558a15-bcf1-49c6-9260-2d66baadd84f
+		summarizeBy: none
+		sourceColumn: idVeiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Documento Fiscal'
+		dataType: int64
+		formatString: 0
+		lineageTag: f0990d28-f082-4f66-b2ca-051086f53e9c
+		summarizeBy: sum
+		sourceColumn: Documento Fiscal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Peso (KG)'
+		dataType: double
+		lineageTag: b683fe26-11f7-4055-ab73-1d9305680e54
+		summarizeBy: sum
+		sourceColumn: Peso (KG)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Peso (Cubado)'
+		dataType: double
+		lineageTag: 4a5a07e2-8b42-4ad7-b8e9-453b9ce14432
+		summarizeBy: sum
+		sourceColumn: Peso (Cubado)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Valor da Mercadoria'
+		dataType: double
+		lineageTag: cd5ec4ad-0d43-4413-87a0-2aa810a61a12
+		summarizeBy: sum
+		sourceColumn: Valor da Mercadoria
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Valor do Frete Líquido'
+		dataType: double
+		lineageTag: 568c3583-de62-49c0-a408-879a77875170
+		summarizeBy: sum
+		sourceColumn: Valor do Frete Líquido
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Devolução
+		dataType: string
+		lineageTag: 45e6d76c-15ad-4fc5-8ad7-4c5132d4cd0c
+		summarizeBy: none
+		sourceColumn: Devolução
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Status
+		dataType: string
+		lineageTag: 36e782c9-4979-4cc8-921b-0047a061e6a1
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Cidade
+		dataType: string
+		lineageTag: 79147967-d0f9-4012-8970-f14c43bae861
+		summarizeBy: none
+		sourceColumn: Cidade
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column UF
+		dataType: string
+		lineageTag: 728633c0-878e-4bdd-be59-fc6dd615a814
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition Fretes-e3f11ede-c8fa-429b-9a5f-62bc11b039f3 = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\nadia\OneDrive\Documentos\Estudos\Power BI Week - Leonardo Karpinski\Aula 1\Nádia\Arquivos da Aula\BaseDados\Fretes.xlsx"), null, true),
+				    Fretes_Sheet = Fonte{[Item="Fretes",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fretes_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data Pedido", type date}, {"Data Previsão Entrega", type date}, {"Data Entrega", type date}, {"Cliente", type text}, {"idVeiculo", Int64.Type}, {"Documento Fiscal", Int64.Type}, {"Peso (KG)", type number}, {"Peso (Cubado)", type number}, {"Valor da Mercadoria", type number}, {"Valor do Frete Líquido", type number}, {"Devolução", type text}, {"Status", type text}}),
+				    #"Dividir Coluna por Delimitador" = Table.SplitColumn(#"Tipo Alterado", "Cliente", Splitter.SplitTextByDelimiter(" / ", QuoteStyle.Csv), {"Cliente.1", "Cliente.2"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Dividir Coluna por Delimitador",{{"Cliente.1", Int64.Type}, {"Cliente.2", type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado1",{{"Cliente.1", "idCliente"}, {"Cliente.2", "Cidade/UF"}}),
+				    #"Texto Inserido Antes do Delimitador" = Table.AddColumn(#"Colunas Renomeadas", "Cidade", each Text.BeforeDelimiter([#"Cidade/UF"], ","), type text),
+				    #"Texto Inserido Após o Delimitador" = Table.AddColumn(#"Texto Inserido Antes do Delimitador", "Texto Após o Delimitador", each Text.AfterDelimiter([#"Cidade/UF"], ", "), type text),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Texto Inserido Após o Delimitador",{{"Texto Após o Delimitador", "UF"}})
+				in
+				    #"Colunas Renomeadas1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

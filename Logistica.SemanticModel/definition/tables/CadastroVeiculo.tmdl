@@ -1,0 +1,77 @@
+table CadastroVeiculo
+	lineageTag: 105b5611-402e-4447-8daa-ef395c2c127b
+
+	column 'Código Veículo'
+		dataType: int64
+		formatString: 0
+		lineageTag: ff15f17c-340c-4f85-9482-2bb0642b9a33
+		summarizeBy: none
+		sourceColumn: Código Veículo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Placa
+		dataType: string
+		lineageTag: a58ac027-3c98-4497-a426-bcb3e180bb3e
+		summarizeBy: none
+		sourceColumn: Placa
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Marca
+		dataType: string
+		lineageTag: 1aa783da-9128-4ece-99cc-0ffc767cc86d
+		summarizeBy: none
+		sourceColumn: Marca
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Tipo Veículo'
+		dataType: string
+		lineageTag: 150dea06-33a8-4488-9e5b-c0b3cd7afc85
+		summarizeBy: none
+		sourceColumn: Tipo Veículo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Baú
+		dataType: string
+		lineageTag: 1a624967-f303-4bb3-bf77-98c0ef9b15be
+		summarizeBy: none
+		sourceColumn: Baú
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: e90553a4-1079-40b3-87ba-c3e6941b763b
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CadastroVeiculo-dbed0018-974d-4d79-9f8d-4b6ae4f51577 = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\nadia\OneDrive\Documentos\Estudos\Power BI Week - Leonardo Karpinski\Aula 1\Nádia\Arquivos da Aula\BaseDados\CadastroVeiculos.xlsx"), null, true),
+				    CadastroVeiculo_Sheet = Fonte{[Item="CadastroVeiculo",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(CadastroVeiculo_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Código Veículo", Int64.Type}, {"Placa", type text}, {"Marca", type text}, {"Tipo Veículo", type text}, {"Baú", type text}, {"Ano", Int64.Type}}),
+				    #"Colocar Cada Palavra Em Maiúscula" = Table.TransformColumns(#"Tipo Alterado",{{"Baú", Text.Proper, type text}})
+				in
+				    #"Colocar Cada Palavra Em Maiúscula"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

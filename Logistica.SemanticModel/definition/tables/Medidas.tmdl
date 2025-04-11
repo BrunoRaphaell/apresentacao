@@ -1,0 +1,70 @@
+table Medidas
+	lineageTag: 3080484b-ba0f-42ed-b0ac-d6c3c5f35387
+
+	measure '% Pedidos Ano Anterior' = ```
+			
+			var PedidosAnoAtual = [Pedidos]
+			var PedidosAnoAnterior = CALCULATE([Pedidos], SAMEPERIODLASTYEAR(Fretes[Data Pedido].[Date]))
+			RETURN 
+			DIVIDE(PedidosAnoAtual - PedidosAnoAnterior, PedidosAnoAnterior, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Pedido
+		lineageTag: 4be6e4ee-28c1-49a6-b46b-ca3d30ce4018
+
+		changedProperty = FormatString
+
+	measure '% Receita Bruta Ano Anterior' = ```
+			
+			var ReceitaAnoAnterior = CALCULATE([Receita Bruta], SAMEPERIODLASTYEAR(Fretes[Data Pedido].[Date]))
+			var ReceitaAnoAtual = [Receita Bruta]
+			RETURN
+			DIVIDE(ReceitaAnoAtual - ReceitaAnoAnterior, ReceitaAnoAnterior, 0)
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Receita
+		lineageTag: f5217918-689e-4d20-bb79-df9520b08182
+
+		changedProperty = FormatString
+
+	measure Pedidos = COUNTROWS(Fretes)
+		formatString: #,0
+		displayFolder: Pedido
+		lineageTag: b8794976-dbd8-47dc-9625-7324b819af99
+
+		changedProperty = FormatString
+
+	measure 'Receita Bruta' = SUM(Fretes[Valor do Frete Líquido])
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: Receita
+		lineageTag: 96f0c9e6-6c6d-4721-82cf-a8e3e585c9ac
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'Coluna 1'
+		dataType: string
+		isHidden
+		lineageTag: cadfd635-74e6-4643-acd4-e992aaa50d82
+		summarizeBy: none
+		sourceColumn: Coluna 1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition Medidas-546df4e3-b0da-4f1b-a55a-d7c11fd0ac49 = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

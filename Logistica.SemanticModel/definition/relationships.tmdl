@@ -1,0 +1,19 @@
+relationship c064e43f-7a43-4a4c-9507-04bb56c65224
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fretes.'Data Pedido'
+	toColumn: LocalDateTable_7f37ac39-2ac8-40a2-bcfd-cd294124d422.Date
+
+relationship a5ab4031-417d-4a69-bcf7-a6fd438a866e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fretes.'Data Previsão Entrega'
+	toColumn: LocalDateTable_fb30eecd-acef-490b-8804-e1975d6d1546.Date
+
+relationship 776fddd4-6e67-4cd7-80c5-c0eb3e24b4c5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fretes.'Data Entrega'
+	toColumn: LocalDateTable_33b93941-6813-4fcb-a048-14cb2f7bdc0d.Date
+
+relationship 7be6c1ff-5554-4f03-ac45-1e7844f88bd8
+	fromColumn: Fretes.idVeiculo
+	toColumn: CadastroVeiculo.'Código Veículo'
+

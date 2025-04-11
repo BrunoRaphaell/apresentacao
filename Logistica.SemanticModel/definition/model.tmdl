@@ -1,0 +1,26 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBIDesktopVersion = 2.140.1577.0 (25.02)+00af0910c5ca19a229c472b0dfc17a2c488f6b0a
+
+annotation PBI_QueryOrder = ["Fretes","CadastroVeiculo","Medidas"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Fretes
+ref table DateTableTemplate_da7d8647-d330-4ea1-9485-f740baf7ee62
+ref table LocalDateTable_7f37ac39-2ac8-40a2-bcfd-cd294124d422
+ref table LocalDateTable_fb30eecd-acef-490b-8804-e1975d6d1546
+ref table LocalDateTable_33b93941-6813-4fcb-a048-14cb2f7bdc0d
+ref table CadastroVeiculo
+ref table Medidas
+
+ref cultureInfo pt-BR
+
